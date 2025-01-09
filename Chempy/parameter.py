@@ -1,4 +1,5 @@
 import numpy as np
+import os 
 
 class ModelParameters(object):
     
@@ -362,7 +363,7 @@ class ModelParameters(object):
     
     
     # (These are common elements between proto-sun and Chempy traced elements)
-    sol_dat=np.load('Chempy/input/stars/'+stellar_identifier+'.npy')	
+    sol_dat=np.load(os.path.dirname(__file__)+'/input/stars/'+stellar_identifier+'.npy')		
     neural_names = []
     for item in elements_to_trace:
         if item in list(sol_dat.dtype.names):
