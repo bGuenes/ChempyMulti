@@ -89,7 +89,7 @@ class SN1a_feedback(object):
         self.table = {}
         
         self.metallicities = list([0.02]) # arbitrary since only one value
-        self.masses = list([np.sum(f['Yield'].value)]) # sum of all yields
+        self.masses = list([np.sum(f['Yield'][:])]) # sum of all yields
         
         names = ['Mass','mass_in_remnants']+self.elements
         
@@ -1286,18 +1286,18 @@ class SN2_feedback(object):
         self.table = {}
         
         # Define masses / metallicities
-        self.metallicities = list(f['Metallicities'].value)
-        self.masses = f['Masses'].value
+        self.metallicities = list(f['Metallicities'][:])
+        self.masses = f['Masses'][:]
 
     
         for z_index,z in enumerate(self.metallicities):
             
             yield_subtable = {}
             
-            z_name = f['Yield_names'].value[z_index].decode('utf-8')
+            z_name = f['Yield_names'][:][z_index].decode('utf-8')
             z_data = f['Yields/'+z_name+'/Yield']
             
-            ejecta_mass = f['Yields/'+z_name+'/Ejected_mass'].value
+            ejecta_mass = f['Yields/'+z_name+'/Ejected_mass'][:]
             
             yield_subtable['Mass'] = self.masses
             remnants = self.masses-ejecta_mass
@@ -1422,18 +1422,18 @@ class AGB_feedback(object):
         
         self.table = {}
         
-        self.metallicities = list(f['Metallicities'].value)
-        self.masses = f['Masses'].value
+        self.metallicities = list(f['Metallicities'][:])
+        self.masses = f['Masses'][:]
         
 
         for z_index,z in enumerate(self.metallicities):
 
             yield_subtable = {}
             
-            z_name = f['Yield_names'].value[z_index].decode('utf-8')
+            z_name = f['Yield_names'][:][z_index].decode('utf-8')
             z_data = f['Yields/'+z_name+'/Yield']
             
-            ejecta_mass = f['Yields/'+z_name+'/Ejected_mass'].value
+            ejecta_mass = f['Yields/'+z_name+'/Ejected_mass'][:]
             
             yield_subtable['Mass'] = list(reversed(self.masses))
             remnants = self.masses-ejecta_mass
